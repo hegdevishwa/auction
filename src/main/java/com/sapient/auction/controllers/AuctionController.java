@@ -10,8 +10,8 @@ public class AuctionController {
 	@RequestMapping("/index")
 	public ModelAndView getIndexPage(){
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("msg","Hello from spring MVC");
-		mav.setViewName("home");
+//		mav.addObject("msg","Hello from spring MVC");
+		mav.setViewName("login");
 		return mav;
 	}
 

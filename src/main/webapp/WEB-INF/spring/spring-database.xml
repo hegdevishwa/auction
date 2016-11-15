@@ -11,5 +11,13 @@
 		<property name="username" value="root" />
 		<property name="password" value="admin" />
 	</bean>
+	
+	<!-- <bean id="userDao" class="com.sapient.auction.domain.dao.UserDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean id="userService" class="com.sapient.auction.services.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean> -->
 
 </beans>

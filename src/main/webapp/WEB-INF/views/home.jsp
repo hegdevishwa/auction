@@ -2,11 +2,22 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+  </script>
+</head>
 <body>
-	<h1>Title : ${title}</h1>
-	<h1>Message : ${message}</h1>
+<h1>Home</h1>
 	<a href="javascript:formSubmit()"> Logout</a>
-	<sec:authorize access="hasRole('ROLE_USER')">
 		<!-- For login user -->
 		<c:url value="/j_spring_security_logout" var="logoutUrl" />
 		<form action="${logoutUrl}" method="post" id="logoutForm">
@@ -19,21 +30,19 @@
 			}
 		</script>
 		<table>
-
-
 			<tr>
 				<td><c:if
 						test="${pageContext.request.userPrincipal.name != null}">
-						<h2>User : ${pageContext.request.userPrincipal.name}</h2>
+						<h2>User Name: ${pageContext.request.userPrincipal.name}</h2>
 					</c:if></td>
 			</tr>
-			<tr>
-				<td><a href="createsaleitem"> Create Sale Item</a></td>
-			</tr>
 		</table>
-
-
-
-	</sec:authorize>
+<div id="tabs">
+  <ul>
+    <li><a href="createsaleitem">Create Sale Item</a></li>
+    <li><a href="createbidForItem">Create Bid</a></li>
+    <li><a href="#tabs-3">List of Sales</a></li>
+  </ul>
+</div>
 </body>
 </html>

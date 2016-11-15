@@ -5,7 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Reg</title>
+<title>Registration</title>
+<style type="text/css">
+.error {
+        color: red; font-weight: bold;
+    }
+</style>
 </head>
 <body>
 	<form:form action="auctionRegistration" method="POST"
@@ -21,6 +26,7 @@
 						<tr>
 							<td><label for="fname">Name</label></td>
 							<td><form:input path="fname" /></td>
+							<td align="left"><form:errors path="fname" cssClass="error"/></td>
 						</tr>
 						<tr>
 							<td><label for="lname">Last Name</label></td>
@@ -29,19 +35,23 @@
 						<tr>
 							<td><label for="emialId">Email</label></td>
 							<td><form:input path="emialId" /></td>
+							<td align="left"><form:errors path="emialId" cssClass="error"/></td>
 						</tr>
 						<tr>
 							<td><label for="userName">UserName</label></td>
 							<td><form:input path="userName" /></td>
+							<td align="left"><form:errors path="userName" cssClass="error"/></td>
 						</tr>
 						<tr>
 							<td><label for="password">UserPassword</label></td>
-							<td><form:input path="password" /></td>
+							<td><form:password path="password" /></td>
+							<td align="left"><form:errors path="password" cssClass="error"/></td>
 						</tr>
 
 						<tr>
 							<td><label for="mobile">Mobile</label></td>
 							<td><form:input path="mobile" /></td>
+							<td align="left"><form:errors path="mobile" cssClass="error"/></td>
 						</tr>
 
 						<tr>

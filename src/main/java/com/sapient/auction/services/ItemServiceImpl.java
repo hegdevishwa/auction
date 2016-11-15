@@ -3,7 +3,8 @@
  */
 package com.sapient.auction.services;
 
-import java.util.Date;
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,31 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	@Transactional
-	public String createSaleItem(Item item) {
+	public int createSaleItem(Item item) {
 
 		logger.debug("Method: createSaleItem");
 
-		item.setCreatedBy("Vishwa");
-		item.setCreateDateTime(new Date());
-		itemDao.createSaleItem(item);
+		item.setUserId(1);
+		setCreateExpiryDates(item);
 
-		return null;
+		try {
+			item.setImageByteArray(item.getFile().getBytes());
+		} catch (IOException e) {
+			logger.error("Error extracting image from Multipart file.", e);
+		}
+
+		int rowCount = itemDao.createSaleItem(item);
+
+		if (rowCount >= 1) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
+	private void setCreateExpiryDates(Item item) {
+		item.setCreateDateTime(LocalDateTime.now());
+		item.setExpiryDate(LocalDateTime.from(item.getCreateDateTime()).plusDays(3));
 	}
 
 	/**

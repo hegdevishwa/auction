@@ -3,66 +3,53 @@ package com.sapient.auction.domain.model;
 import java.util.Date;
 
 public class Bid {
-	
+
 	private int bidId;
 	private Item itemId;
 	private User userId;
 	private double bidPrice;
-	private Date createDate;
-	private String createdBy;
-	private Date updateDate;
-	private String updatedBy;
-	
+	private Date createdDate;
+
 	public int getBidId() {
 		return bidId;
 	}
+
 	public void setBidId(int bidId) {
 		this.bidId = bidId;
 	}
+
 	public Item getItemId() {
 		return itemId;
 	}
+
 	public void setItemId(Item itemId) {
 		this.itemId = itemId;
 	}
+
 	public User getUserId() {
 		return userId;
 	}
+
 	public void setUserId(User userId) {
 		this.userId = userId;
 	}
+
 	public double getBidPrice() {
 		return bidPrice;
 	}
+
 	public void setBidPrice(double bidPrice) {
 		this.bidPrice = bidPrice;
 	}
-	
-	public Date getCreateDate() {
-		return createDate;
+
+	public Date getCreatedDate() {
+		return createdDate;
 	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+
+	public void setCreatedDate(Date createDate) {
+		this.createdDate = createDate;
 	}
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,6 +57,7 @@ public class Bid {
 		result = prime * result + bidId;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -83,4 +71,11 @@ public class Bid {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Bid [bidId=" + bidId + ", itemId=" + itemId + ", userId=" + userId + ", bidPrice=" + bidPrice
+				+ ", createdDate=" + createdDate + "]";
+	}
+
 }

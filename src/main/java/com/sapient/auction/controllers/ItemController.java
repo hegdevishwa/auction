@@ -10,9 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.sapient.auction.domain.model.Item;
 import com.sapient.auction.services.ItemService;
@@ -26,17 +23,25 @@ public class ItemController {
 	private ItemService itemService;
 
 	@RequestMapping(path = "/items", method = RequestMethod.POST)
-	public String createSaleItem(@ModelAttribute Item item, @RequestParam CommonsMultipartFile fil, Model model) {
+	public String createSaleItem(@ModelAttribute Item item, Model model) {
 
 		logger.info("Method: createSaleItem");
 
-		itemService.createSaleItem(item);
+		int result = itemService.createSaleItem(item);
 
-		return "home";
-
+		if (result >= 1) {
+			return "home";
+		} else {
+			return "403";
+		}
 	}
 
-	@RequestMapping(path = "createsaleitem", method = RequestMethod.GET)
+	/**
+	 * 
+	 * @param model
+	 * @return JSP page
+	 */
+	@RequestMapping(path = "/createsaleitem", method = RequestMethod.GET)
 	public String createSaleItemPagNav(Model model) {
 
 		logger.info("Method:createSaleItemPagNav");

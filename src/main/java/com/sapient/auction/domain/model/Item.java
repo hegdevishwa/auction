@@ -1,6 +1,10 @@
 package com.sapient.auction.domain.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class Item {
 
@@ -9,10 +13,11 @@ public class Item {
 	private String category;
 	private String description;
 	private double baseBidPrice;
-	private Date createDateTime;
-	private String createdBy;
-	private Date updateDateTime;
-	private String updatedBy;
+	private LocalDateTime createDateTime;
+	private int userId;
+	private LocalDateTime expiryDate;
+	private MultipartFile file;
+	private byte[] imageByteArray;
 
 	/**
 	 * @return the itemId
@@ -92,7 +97,7 @@ public class Item {
 	/**
 	 * @return the createDate
 	 */
-	public Date getCreateDateTime() {
+	public LocalDateTime getCreateDateTime() {
 		return createDateTime;
 	}
 
@@ -100,60 +105,75 @@ public class Item {
 	 * @param createDate
 	 *            the createDate to set
 	 */
-	public void setCreateDateTime(Date createDateTime) {
+	public void setCreateDateTime(LocalDateTime createDateTime) {
 		this.createDateTime = createDateTime;
 	}
 
 	/**
 	 * @return the createdBy
 	 */
-	public String getCreatedBy() {
-		return createdBy;
+	public int getUserId() {
+		return userId;
 	}
 
 	/**
 	 * @param createdBy
 	 *            the createdBy to set
 	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	/**
-	 * @return the updateDate
+	 * @return the file
 	 */
-	public Date getUpdateDateTime() {
-		return updateDateTime;
+	public MultipartFile getFile() {
+		return file;
 	}
 
 	/**
-	 * @param updateDate
-	 *            the updateDate to set
+	 * @param file
+	 *            the file to set
 	 */
-	public void setUpdateDateTime(Date updateDateTime) {
-		this.updateDateTime = updateDateTime;
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 
 	/**
-	 * @return the updatedBy
+	 * @return the imageByteArray
 	 */
-	public String getUpdatedBy() {
-		return updatedBy;
+	public byte[] getImageByteArray() {
+		return imageByteArray;
 	}
 
 	/**
-	 * @param updatedBy
-	 *            the updatedBy to set
+	 * @param imageByteArray
+	 *            the imageByteArray to set
 	 */
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setImageByteArray(byte[] imageByteArray) {
+		this.imageByteArray = imageByteArray;
+	}
+
+	/**
+	 * @return the expiryDate
+	 */
+	public LocalDateTime getExpiryDate() {
+		return expiryDate;
+	}
+
+	/**
+	 * @param expiryDate
+	 *            the expiryDate to set
+	 */
+	public void setExpiryDate(LocalDateTime expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 
 	@Override
 	public String toString() {
 		return "Item [itemId=" + itemId + ", name=" + name + ", category=" + category + ", description=" + description
-				+ ", baseBidPrice=" + baseBidPrice + ", createDate=" + createDateTime + ", createdBy=" + createdBy
-				+ ", updateDate=" + updateDateTime + ", updatedBy=" + updatedBy + "]";
+				+ ", baseBidPrice=" + baseBidPrice + ", createDate=" + createDateTime + ", userId=" + userId
+				+ ", updateDate=" + "]";
 	}
 
 }

@@ -13,7 +13,7 @@
 	</div>
 
 	<fieldset>
-		<form:form action="items" method="POST" commandName="item">
+		<form:form action="items" method="POST" commandName="item" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td><label for="name">Name:</label></td>
@@ -36,7 +36,7 @@
 
 				<tr>
 					<td><label for="file">Upload an image</label></td>
-					<td><input type="file" id="file" name="file" value="${file}" /></td>
+					<td><input type="file" id="file" name="file" /></td>
 				</tr>
 				<tr>
 					<td><form:button id="submit">Submit</form:button></td>

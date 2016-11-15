@@ -3,10 +3,11 @@
  */
 package com.sapient.auction.domain.dao;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.sapient.auction.domain.model.Item;
 
@@ -34,11 +35,14 @@ public class ItemDaoImpl extends BaseDaoImpl implements ItemDao {
 
 		int rowCount;
 
-		String sql = "INSERT INTO item  ( name, category, description, base_bid_price, created_date_time, created_by)"
-				+ "VALUES ( ?, ? ,?, ?, ?, ? )";
+		System.out.println(item);
+		System.out.println(item.getImageByteArray().length);
+
+		String sql = "INSERT INTO item  ( name, category, description, base_bid_price, userid,image, created_date_time,  expiry_date)"
+				+ "VALUES ( ?, ? ,?, ?, ?, ?, now(), now())";
 		try {
 			rowCount = jdbcTemplate.update(sql, new Object[] { item.getName(), item.getCategory(),
-					item.getDescription(), item.getBaseBidPrice(), item.getCreateDateTime(), item.getCreatedBy() });
+					item.getDescription(), item.getBaseBidPrice(), item.getUserId(), item.getImageByteArray() });
 		} catch (DataAccessException e) {
 			logger.error("Error inserting data in database.", e);
 
@@ -46,6 +50,14 @@ public class ItemDaoImpl extends BaseDaoImpl implements ItemDao {
 		}
 
 		return rowCount;
+	}
+
+	@Override
+	public List<Item> getActiveSaleItems() throws RuntimeException {
+
+		logger.info("Method: getActiveSaleItems");
+
+		return null;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.sapient.auction.services;
 
-public interface UserService {
+import com.sapient.auction.domain.model.User;
 
+public interface UserService {
+	public void createUser(User user);
 }
