@@ -1,23 +1,26 @@
 package com.sapient.auction.domain.model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Item {
 
 	private int itemId;
+
+	@NotEmpty(message = "Please enter name")
 	private String name;
+	@NotEmpty(message = "Please choose category")
 	private String category;
 	private String description;
 	private double baseBidPrice;
-	private LocalDateTime createDateTime;
+	private Date createDateTime;
 	private int userId;
-	private LocalDateTime expiryDate;
+	private Date expiryDate;
 	private MultipartFile file;
 	private byte[] imageByteArray;
+	private String base64EncodedImage;
 
 	/**
 	 * @return the itemId
@@ -95,33 +98,48 @@ public class Item {
 	}
 
 	/**
-	 * @return the createDate
+	 * @return the createDateTime
 	 */
-	public LocalDateTime getCreateDateTime() {
+	public Date getCreateDateTime() {
 		return createDateTime;
 	}
 
 	/**
-	 * @param createDate
-	 *            the createDate to set
+	 * @param createDateTime
+	 *            the createDateTime to set
 	 */
-	public void setCreateDateTime(LocalDateTime createDateTime) {
+	public void setCreateDateTime(Date createDateTime) {
 		this.createDateTime = createDateTime;
 	}
 
 	/**
-	 * @return the createdBy
+	 * @return the userId
 	 */
 	public int getUserId() {
 		return userId;
 	}
 
 	/**
-	 * @param createdBy
-	 *            the createdBy to set
+	 * @param userId
+	 *            the userId to set
 	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	/**
+	 * @return the expiryDate
+	 */
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+
+	/**
+	 * @param expiryDate
+	 *            the expiryDate to set
+	 */
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 
 	/**
@@ -155,18 +173,18 @@ public class Item {
 	}
 
 	/**
-	 * @return the expiryDate
+	 * @return the base64EncodedImage
 	 */
-	public LocalDateTime getExpiryDate() {
-		return expiryDate;
+	public String getBase64EncodedImage() {
+		return base64EncodedImage;
 	}
 
 	/**
-	 * @param expiryDate
-	 *            the expiryDate to set
+	 * @param base64EncodedImage
+	 *            the base64EncodedImage to set
 	 */
-	public void setExpiryDate(LocalDateTime expiryDate) {
-		this.expiryDate = expiryDate;
+	public void setBase64EncodedImage(String base64EncodedImage) {
+		this.base64EncodedImage = base64EncodedImage;
 	}
 
 	@Override

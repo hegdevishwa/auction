@@ -3,10 +3,13 @@
  */
 package com.sapient.auction.domain.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.sapient.auction.domain.model.Item;
@@ -29,35 +32,65 @@ public class ItemDaoImpl extends BaseDaoImpl implements ItemDao {
 	 * @throws RuntimeException
 	 */
 	@Override
-	public int createSaleItem(Item item) throws RuntimeException {
+	public int createSaleItem(Item item) {
 
 		logger.info("Method: createSaleItem");
 
 		int rowCount;
 
-		System.out.println(item);
-		System.out.println(item.getImageByteArray().length);
-
 		String sql = "INSERT INTO item  ( name, category, description, base_bid_price, userid,image, created_date_time,  expiry_date)"
-				+ "VALUES ( ?, ? ,?, ?, ?, ?, now(), now())";
-		try {
-			rowCount = jdbcTemplate.update(sql, new Object[] { item.getName(), item.getCategory(),
-					item.getDescription(), item.getBaseBidPrice(), item.getUserId(), item.getImageByteArray() });
-		} catch (DataAccessException e) {
-			logger.error("Error inserting data in database.", e);
-
-			throw new RuntimeException("Error inserting item data into database.");
-		}
-
+				+ "VALUES ( ?, ? ,?, ?, ?, ?, ?, ?)";
+		rowCount = jdbcTemplate.update(sql,
+				new Object[] { item.getName(), item.getCategory(), item.getDescription(), item.getBaseBidPrice(),
+						item.getUserId(), item.getImageByteArray(), item.getCreateDateTime(), item.getExpiryDate() });
 		return rowCount;
 	}
 
+	/**
+	 * Method to get list of active sale items.
+	 * 
+	 * @return List of Items
+	 */
 	@Override
-	public List<Item> getActiveSaleItems() throws RuntimeException {
+	public List<Item> getActiveSaleItems() {
 
 		logger.info("Method: getActiveSaleItems");
+		String sql = "select * from item where expiry_date >= now()";
+		RowMapper<Item> rowMapper = new ItemRowMapper();
+		List<Item> items = jdbcTemplate.query(sql, rowMapper);
+		return items;
 
-		return null;
+	}
+
+	/**
+	 * To get the item details.
+	 * 
+	 * @param integer
+	 *            - Item id
+	 * @return Item
+	 */
+	@Override
+	public Item getItem(Integer itemId) {
+		String query = "select * from item where item_id=?";
+		RowMapper<Item> rm = new ItemRowMapper();
+		return jdbcTemplate.queryForObject(query, rm, itemId);
+	}
+
+	class ItemRowMapper implements RowMapper<Item> {
+		@Override
+		public Item mapRow(ResultSet rs, int arg1) throws SQLException {
+			Item item = new Item();
+			item.setItemId(rs.getInt("item_id"));
+			item.setName(rs.getString("name"));
+			item.setCategory(rs.getString("category"));
+			item.setDescription(rs.getString("description"));
+			item.setBaseBidPrice(rs.getDouble("base_bid_price"));
+			item.setExpiryDate(rs.getDate("expiry_date"));
+			item.setImageByteArray(rs.getBytes("image"));
+			item.setUserId(rs.getInt("userid"));
+			return item;
+		}
+
 	}
 
 }

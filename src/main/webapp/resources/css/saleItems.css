@@ -1,0 +1,19 @@
+@CHARSET "ISO-8859-1";
+
+table {
+	border-collapse: collapse;
+}
+
+th, td {
+	border-bottom: 1px solid #cecfd5;
+	padding: 10px 15px;
+}
+
+th {
+	font-weight: bold;
+	font-size: large;
+}
+
+tfoot tr:last-child td {
+	border-bottom: 0;
+}

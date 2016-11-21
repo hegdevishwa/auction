@@ -1,0 +1,13 @@
+@CHARSET "ISO-8859-1";
+ body{
+  background:#b4b4b4;
+}
+ #legend {
+	text-align: center;
+	background: #b4b4b4;
+	width: 100%;
+	padding: 30px 0;
+	border-radius: 3px 3px 0 0;
+	color: white;
+font-size:2em;
+}

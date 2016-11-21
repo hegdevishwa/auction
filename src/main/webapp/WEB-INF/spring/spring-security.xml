@@ -13,13 +13,13 @@
 		<access-denied-handler error-page="/403" />
 		<form-login 
 		    login-page="/" 
-		    default-target-url="/welcome" 
+		    default-target-url="/home" 
 			authentication-failure-url="/?error=1" 
 			username-parameter="j_username" 
 					password-parameter="j_password" 
 					login-processing-url="/j_spring_security_check"
 		 />
-		<logout logout-success-url="/?logout" logout-url="/j_spring_security_logout" />
+		<logout logout-success-url="/?logout" logout-url="/j_spring_security_logout" invalidate-session="true"/>
 		<!-- enable csrf protection -->
 		<csrf disabled="true"/>
 	</http>

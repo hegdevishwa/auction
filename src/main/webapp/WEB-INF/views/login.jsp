@@ -4,47 +4,36 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="resources/css/login.css" rel="stylesheet"
+	type="text/css" />
 <title>Welcome</title>
+
 </head>
 <body onload='document.f.j_username.focus();'>
-
-	<p>
-	<h3>Welcome to Online-Auction</h3>
-	</p>
-
-	<div>
-		<c:if test="${not empty error}">
+<div class="body"></div>
+		<div class="grad"></div>
+		
+		<div class="header">
+			<div>Welcome to<span>Online-Auction</span></div>
+		</div>
+	<div  class="login">
+	<c:if test="${not empty error}">
 			<div class="error">${error}</div>
 		</c:if>
 		<c:if test="${not empty msg}">
 			<div class="msg">${msg}</div>
 		</c:if>
-		<form name='loginForm' action="j_spring_security_check" method='POST'>
-
-
-			<table>
-				<tr>
-					<td><h3>Sign in:</h3></td>
-				</tr>
-				<tr>
-					<td>User Name:</td>
-					<td><input type="text" name="j_username" id="username"></td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type="password" name="j_password" id="password"></td>
-				</tr>
-				<tr>
-					<td><input type="submit" name="submit" value="Login"></td>
-					<td><a href="register">Register</a></td>
-					<td><a href="createsaleitem"> Create Sale Item</a></td>
-				</tr>
-
-			</table>
-
+		<form name='loginForm'
+			action="j_spring_security_check" method='POST'>
+			
+			<input type="text" name="j_username" id="username" placeholder="username" >
+			<input type="password" name="j_password" id="password" placeholder="password"  >
+			<input type="submit" name="submit" value="Login">
+			<a href="register"><input type="register" value="Register"/></a>
+			
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
-
+			
 		</form>
 	</div>
 

@@ -1,26 +1,52 @@
 package com.sapient.auction.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sapient.auction.dao.exception.UserDaoException;
+import com.sapient.auction.domain.dao.UserDao;
+import com.sapient.auction.domain.model.User;
+
 @Controller
 public class LoginController {
 
-	@RequestMapping(value = "/welcome**", method = RequestMethod.GET)
-	public ModelAndView homePage() {
+	@Autowired
+	private UserDao userDao;
 
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Auction Login Form - Database Authentication");
-		model.addObject("message", "This is default page!");
-		model.setViewName("home");
-		return model;
+	
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String homePage(HttpServletRequest request ,Model model ) throws UserDaoException {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName();
+	    if (auth instanceof AnonymousAuthenticationToken) {
+	    	model.addAttribute("msg", "Pls Login First");
+	    	return "login";	
+		}
+	    else{
+	    HttpSession session = request.getSession(false);
+	    
+	    User user= userDao.getUserByUserName(name).get(0);
+	    
+	    session.setAttribute("username",user.getUserName() );
+	    session.setAttribute("userId",user.getUserId() );	    
+		model.addAttribute("user", user);
+		model.addAttribute("title", "Auction Login Form - Database Authentication");
+		model.addAttribute("message", "This is default page!");
+		model.addAttribute("fname", user.getFname());
+	    }
+		return "home";
 
 	}
 

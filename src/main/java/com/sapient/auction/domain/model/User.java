@@ -1,123 +1,166 @@
+/* Copyright (C) 2016 Sapient. All Rights Reserved. */
 package com.sapient.auction.domain.model;
 
 import java.util.Date;
 
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * @author avish9
+ * Resource representing a User within the system.
+ */
 public class User {
 
+	/** user id of given user. */
 	private int userId;
 
+	/** The user given (first)name. */
 	@NotEmpty(message = "Please enter name")
 	private String fname;
+	
+	/** The user given (last) name. */
 	private String lname;
 
-	@NotEmpty(message = "Please enter valid email address")
-	@Email
-	private String emialId;
-
+	
+	 /** The user preferred user name. */
 	@NotEmpty(message = "Please enter user name")
+	@Email
 	private String userName;
 
+	 /** The user preferred password. */
 	@NotEmpty(message = "Please enter your password.")
 	@Size(min = 6, max = 15, message = "Your password must between 6 and 15 characters")
 	private String password;
 
-	@NotEmpty(message = "Please enter mobile number")
-	@Pattern(regexp = "(^$|[0-9]{10})")
-	private String mobile;
-
+	
+	/** The user's preferred address. */
 	@NotEmpty(message = "Please enter address")
 	private String address;
 
+	/** user creation date */
 	private Date createDate;
 
+	/**
+	 * @return user id.
+	 */
 	public int getUserId() {
 		return userId;
 	}
 
+	/**
+	 * set user id.
+	 * @param userId.
+	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
+	/**
+	 * @return get first name.
+	 */
 	public String getFname() {
 		return fname;
 	}
 
+	/**
+	 * set user first name.
+	 * @param fname.
+	 */
 	public void setFname(String fname) {
 		this.fname = fname;
 	}
 
+	/**
+	 * @return user last name.
+	 */
 	public String getLname() {
 		return lname;
 	}
 
+	/**
+	 * set user last name.
+	 * @param lname
+	 */
 	public void setLname(String lname) {
 		this.lname = lname;
 	}
 
-	public String getEmialId() {
-		return emialId;
-	}
+	
 
-	public void setEmialId(String emialId) {
-		this.emialId = emialId;
-	}
-
+	/**
+	 * @return username of given user.
+	 */
 	public String getUserName() {
 		return userName;
 	}
 
+	/**
+	 * set username of given user.
+	 * @param userName.
+	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
+	/**
+	 * @return user password.
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * set user password.
+	 * @param password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public String getMobile() {
-		return mobile;
-	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
+	/**
+	 * @return user address.
+	 */
 	public String getAddress() {
 		return address;
 	}
 
+	/**
+	 * set user address.
+	 * @param address 
+	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
+	/**
+	 * @return user creation date.
+	 */
 	public Date getCreateDate() {
 		return createDate;
 	}
 
+	/**
+	 * set user creation date
+	 * @param createDate
+	 */
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
+	 /** {@inheritDoc} */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((emialId == null) ? 0 : emialId.hashCode());
-		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
 		result = prime * result + userId;
 		return result;
 	}
 
+	 /** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -127,25 +170,16 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (emialId == null) {
-			if (other.emialId != null)
-				return false;
-		} else if (!emialId.equals(other.emialId))
-			return false;
-		if (mobile == null) {
-			if (other.mobile != null)
-				return false;
-		} else if (!mobile.equals(other.mobile))
-			return false;
+	
 		if (userId != other.userId)
 			return false;
 		return true;
 	}
 
+	 /** {@inheritDoc} */
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", fname=" + fname + ", lname=" + lname + ", emialId=" + emialId
-				+ ", userName=" + userName + ", password=" + password + ", mobile=" + mobile + ", address=" + address
+		return "User [userId=" + userId + ", fname=" + fname + ", lname=" + lname + ",  userName=" + userName + ", password=" + password + ", address=" + address
 				+ ", createDate=" + createDate + "]";
 	}
 }

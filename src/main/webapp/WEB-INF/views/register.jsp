@@ -5,70 +5,51 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="resources/css/register.css" rel="stylesheet"
+	type="text/css" />
 <title>Registration</title>
-<style type="text/css">
-.error {
-        color: red; font-weight: bold;
-    }
-</style>
 </head>
 <body>
-	<form:form action="auctionRegistration" method="POST"
-			commandName="user">
-			<center>
-				<table border="1" width="30%" cellpadding="5">
-					<thead>
-						<tr>
-							<th colspan="2">Enter Information Here</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><label for="fname">Name</label></td>
-							<td><form:input path="fname" /></td>
-							<td align="left"><form:errors path="fname" cssClass="error"/></td>
-						</tr>
-						<tr>
-							<td><label for="lname">Last Name</label></td>
-							<td><form:input path="lname" /></td>
-						</tr>
-						<tr>
-							<td><label for="emialId">Email</label></td>
-							<td><form:input path="emialId" /></td>
-							<td align="left"><form:errors path="emialId" cssClass="error"/></td>
-						</tr>
-						<tr>
-							<td><label for="userName">UserName</label></td>
-							<td><form:input path="userName" /></td>
-							<td align="left"><form:errors path="userName" cssClass="error"/></td>
-						</tr>
-						<tr>
-							<td><label for="password">UserPassword</label></td>
-							<td><form:password path="password" /></td>
-							<td align="left"><form:errors path="password" cssClass="error"/></td>
-						</tr>
-
-						<tr>
-							<td><label for="mobile">Mobile</label></td>
-							<td><form:input path="mobile" /></td>
-							<td align="left"><form:errors path="mobile" cssClass="error"/></td>
-						</tr>
-
-						<tr>
-							<td><label for="address">Address</label></td>
-							<td><form:input path="address" /></td>
-						</tr>
-						<tr>
-							<td><form:button id="submit">Submit</form:button></td>
-							<td><input type="reset" value="Reset" /></td>
-						</tr>
-						<tr>
-							<td colspan="2">Already registered!! <a href="index">Login
-									Here</a></td>
-						</tr>
-					</tbody>
-				</table>
-			</center>
+<div id="registration-form">
+<div class='fieldset'>
+  <legend>Register Here</legend>
+		<form:form action="auctionRegistration" method="POST"
+			commandName="user" style="border: none;" >
+			
+			<div class='row'>
+				<label for='fname'>First Name</label>
+				<form:input type="text" placeholder="First Name" path="fname" />
+				<form:errors path="fname" cssClass="error"/>
+			</div>
+			
+			
+			<div class='row'>
+				<label for='lname'>Last Name</label>
+				<form:input type="text" placeholder="Last Name" path="lname" />
+			</div>
+			
+			<div class='row'>
+				<label for='userName'>User Name</label>
+				<form:input type="text" placeholder="User Name" path="userName" />
+				<form:errors path="userName" cssClass="error"/>
+			</div>
+			
+			<div class='row'>
+				<label for='password'>User Password</label>
+				<form:input type="password" placeholder="User Password"  path="password" />
+				<form:errors path="password" cssClass="error"/>
+			</div>
+			
+			<div class='row'>
+				<label for='address'>Address</label>
+				<form:input type="text" placeholder="Address" path="address" />
+			</div>
+			<form:button type="submit" id="submit">Submit</form:button>
+			<input type="reset" id ="reset" value="Reset"/>
+			<a href="/auction"><input type="button" id= "loginButton"value="Login Here"/></a>
+			
 		</form:form>
+	</div>
+</div>
 </body>
 </html>
