@@ -13,8 +13,10 @@ public class BidDaoException extends Exception {
 
 	/**
 	 * item dao exception constructor
+	 * The cause is not initialized, and may subsequently be initialized by a call.
 	 */
 	public BidDaoException() {
+		super();
 	}
 
 	/**

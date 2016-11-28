@@ -1,8 +1,10 @@
+/* Copyright (C) 2016 Sapient. All Rights Reserved. */
 package com.sapient.auction.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,38 +17,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sapient.auction.dao.exception.UserDaoException;
-import com.sapient.auction.domain.dao.UserDao;
+import com.sapient.auction.constants.ApplicationConstants;
 import com.sapient.auction.domain.model.User;
+import com.sapient.auction.exception.UserDaoException;
+import com.sapient.auction.services.UserService;
 
 @Controller
 public class LoginController {
+	
+	/** logger of user controller.*/
+	private static final Logger LOGGER = Logger.getLogger(LoginController.class);
 
 	@Autowired
-	private UserDao userDao;
+	private UserService userService;
 
 	
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = ApplicationConstants.HOME_REQUEST, method = RequestMethod.GET)
 	public String homePage(HttpServletRequest request ,Model model ) throws UserDaoException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    String name = auth.getName();
 	    if (auth instanceof AnonymousAuthenticationToken) {
 	    	model.addAttribute("msg", "Pls Login First");
-	    	return "login";	
+	    	return ApplicationConstants.LOGIN_VIEW;	
 		}
 	    else{
 	    HttpSession session = request.getSession(false);
 	    
-	    User user= userDao.getUserByUserName(name).get(0);
+	    User user= userService.getUserByUserName(name);
 	    
 	    session.setAttribute("username",user.getUserName() );
 	    session.setAttribute("userId",user.getUserId() );	    
 		model.addAttribute("user", user);
 		model.addAttribute("title", "Auction Login Form - Database Authentication");
 		model.addAttribute("message", "This is default page!");
-		model.addAttribute("fname", user.getFname());
+		model.addAttribute("firstName", user.getFirstName());
 	    }
-		return "home";
+		return ApplicationConstants.HOME_VIEW;
 
 	}
 
@@ -64,14 +70,14 @@ public class LoginController {
 		if (logout != null) {
 			model.addObject("msg", "You've been logged out successfully.");
 		}
-		model.setViewName("login");
+		model.setViewName(ApplicationConstants.LOGIN_VIEW);
 
 		return model;
 
 	}
 	
 	//for 403 access denied page
-	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	@RequestMapping(value = ApplicationConstants.BAD_REQUEST, method = RequestMethod.GET)
 	public ModelAndView accesssDenied() {
 
 		ModelAndView model = new ModelAndView();
@@ -80,13 +86,12 @@ public class LoginController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			System.out.println(userDetail);
-		
+			LOGGER.info("user is not valid");
 			model.addObject("username", userDetail.getUsername());
 			
 		}
 		
-		model.setViewName("403");
+		model.setViewName(ApplicationConstants.BAD_VIEW_403);
 		return model;
 
 	}

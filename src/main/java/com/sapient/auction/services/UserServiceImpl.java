@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userDao.create(user);
 		} catch (UserDaoException e) {
-			e.printStackTrace();
+			logger.error("User dao throw exception", e);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			return userDao.getUser(userid);
 		} catch (UserDaoException e) {
-			e.printStackTrace();
+			logger.error("User dao throw exception because userid is not present in DB", e);
 			return new User();
 		}
 	}
@@ -71,8 +71,8 @@ public class UserServiceImpl implements UserService {
 		try {
 			return userDao.getUserByUserName(userName);
 		} catch (UserDaoException e) {
-			e.printStackTrace();
-			return new ArrayList<User>();
+			logger.error("User dao throw exception because user name is not present in DB", e);
+			return new ArrayList<>();
 		}
 	}
 }

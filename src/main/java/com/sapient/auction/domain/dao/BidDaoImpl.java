@@ -24,11 +24,10 @@ public class BidDaoImpl extends BaseDaoImpl implements BidDao{
 	 * it will return the bid detail of given item id.
 	 */
 	@Override
-	public List<Bid> getBid(Integer bidId) {
-		String query="select * from bid where bidprice=(select max(bidprice) from bid where item_id=?);";
+	public List<Bid> getBid(Integer itemId) {
+		String query="select * from bid where bidprice=(select max(bidprice) from bid where item_id=?) and item_id=?;";
 		RowMapper<Bid> rm=new BidRowMapper();
-		List<Bid> bidObj = jdbcTemplate.query(query, rm,bidId);
-		return bidObj;
+		return jdbcTemplate.query(query, rm,itemId,itemId);
 	}
 	
 	

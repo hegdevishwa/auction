@@ -7,11 +7,10 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
-import java.io.UnsupportedEncodingException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,11 +19,12 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.validation.BindingResult;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.ui.Model;
 
-import com.sapient.auction.dao.exception.ServiceException;
 import com.sapient.auction.domain.model.Item;
+import com.sapient.auction.domain.model.ItemCategories;
+import com.sapient.auction.exception.ServiceException;
 import com.sapient.auction.services.ItemService;
 
 /**
@@ -40,6 +40,10 @@ public class ItemControllerTest {
 	HttpServletRequest request;
 	@Mock
 	HttpSession httpSession;
+	@Mock
+	Model model;
+	@Mock
+	Logger logger;
 	@InjectMocks
 	ItemController itemController;
 
@@ -57,16 +61,8 @@ public class ItemControllerTest {
 	public void tearDown() throws Exception {
 	}
 
-	/**
-	 * Test method for
-	 * {@link com.sapient.auction.controllers.ItemController#createSaleItem(com.sapient.auction.domain.model.Item, org.springframework.validation.BindingResult, javax.servlet.http.HttpServletRequest)}.
-	 * 
-	 * @throws ServiceException
-	 * 
-	 * @throws UnsupportedEncodingException
-	 */
 	@Test
-	public final void testCreateSaleItem_success() throws ServiceException {
+	public final void testCreateSaleItem_Created() throws ServiceException {
 
 		Item item = new Item();
 
@@ -74,17 +70,48 @@ public class ItemControllerTest {
 		when(httpSession.getAttribute("userId")).thenReturn(10);
 		when(itemService.createSaleItem(item)).thenReturn(1);
 
-		Assert.assertEquals(itemController.createSaleItem(item, request), "home");
+		Assert.assertEquals("redirect:/home", itemController.createSaleItem(item));
 		Mockito.verify(itemService, times(1)).createSaleItem(item);
+		Assert.assertEquals(10, item.getUserId());
+
 	}
 
-	/**
-	 * Test method for
-	 * {@link com.sapient.auction.controllers.ItemController#createSaleItemPagNav(org.springframework.ui.Model)}.
-	 */
+	@Test
+	public final void testCreateSaleItem_NotCreated() throws ServiceException {
+
+		Item item = new Item();
+
+		when(request.getSession(false)).thenReturn(httpSession);
+		when(httpSession.getAttribute("userId")).thenReturn(10);
+		when(itemService.createSaleItem(item)).thenReturn(0);
+
+		Assert.assertEquals(itemController.createSaleItem(item), "createSaleItem");
+		Mockito.verify(itemService, times(1)).createSaleItem(item);
+		Assert.assertEquals(item.getUserId(), 10);
+	}
+
+	@Test
+	public final void testCreateSaleItem_Exception() throws ServiceException {
+
+		Item item = new Item();
+
+		when(request.getSession(false)).thenReturn(httpSession);
+		when(httpSession.getAttribute("userId")).thenReturn(10);
+		when(itemService.createSaleItem(item)).thenReturn(0);
+
+		Assert.assertEquals(itemController.createSaleItem(item), "createSaleItem");
+		Mockito.verify(itemService, times(1)).createSaleItem(item);
+		Assert.assertEquals(item.getUserId(), 10);
+	}
+
 	@Test
 	public final void testCreateSaleItemPagNav() {
-		fail("Not yet implemented"); // TODO
+		Item i = new Item();
+		when(model.addAttribute("item", i)).thenReturn(model);
+		when(model.addAttribute("categories", ItemCategories.values())).thenReturn(model);
+		Assert.assertEquals(itemController.createSaleItemPagNav(model), "createSaleItem");
+		Mockito.verify(model, times(2)).addAttribute(Mockito.anyString(), Mockito.any());
+		
 	}
 
 	/**

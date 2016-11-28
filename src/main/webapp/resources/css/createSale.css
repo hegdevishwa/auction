@@ -210,3 +210,8 @@ background:#5C8CA7;
 background:#5C8CA7;
 }
 
+
+form .error {
+  color: #ff0000;
+}
+

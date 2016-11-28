@@ -39,7 +39,6 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 				new Object[] { user.getUserName(), user.getPassword(), user.getFname(), user.getLname(),
 						 user.getAddress(), dateObj });
 		logger.debug("user created");
-		System.out.println("created");
 	}
 
 	/**
@@ -59,8 +58,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	public List<User> getUserByUserName(String username) {
 		String query = "select * from users where username=?";
 		RowMapper<User> rm = new UserRowMapper();
-		List<User> userObject = jdbcTemplate.query(query, rm, username);
-		return userObject;
+		return jdbcTemplate.query(query, rm, username);
 	}
 	
 	/**

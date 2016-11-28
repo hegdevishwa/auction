@@ -9,11 +9,11 @@
 <body>
 
 	<h2 style="color: red;">Oops something went wrong! Please contact
-		the help desk with below message.</h2>
+		us at 1800 123 456.</h2>
 	<div>
 		<p>${errorMessage}</p>
 	</div>
-	<a href="/home"> Home</a>
+	<a href="home"> Home</a>
 
 </body>
 </html>

@@ -1,10 +1,8 @@
 /* Copyright (C) 2016 Sapient. All Rights Reserved. */
 package com.sapient.auction.domain.dao;
 
-import java.util.List;
-
-import com.sapient.auction.dao.exception.UserDaoException;
 import com.sapient.auction.domain.model.User;
+import com.sapient.auction.exception.UserDaoException;
 
 /**
  * @author avish9
@@ -29,5 +27,7 @@ public interface UserDao {
 	 * @param username
 	 * @return user details of given user name
 	 */
-	public List<User> getUserByUserName(String username) throws UserDaoException;
+	public User getUserByUserName(String username) throws UserDaoException;
+
+	public boolean isUserExist(String username);
 }

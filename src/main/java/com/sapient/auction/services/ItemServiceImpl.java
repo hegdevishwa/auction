@@ -57,7 +57,6 @@ public class ItemServiceImpl implements ItemService {
 
 		List<Item> items = itemDao.getActiveSaleItems();
 		logger.debug("Method: getActiveSaleItems");
-
 		for (Item item : items) {
 			try {
 				item.setBase64EncodedImage(convertToBase64Encoded(item.getImageByteArray()));
@@ -65,9 +64,7 @@ public class ItemServiceImpl implements ItemService {
 				logger.error("Error converting image from byte array to base64 encoded string.", e);
 			}
 		}
-
 		return items;
-
 	}
 
 	/**
@@ -89,9 +86,7 @@ public class ItemServiceImpl implements ItemService {
 		} catch (UnsupportedEncodingException e) {
 			logger.debug("Error converting image from byte array to base64 encoded string.", e);
 		}
-
 		return item;
-
 	}
 
 	/**

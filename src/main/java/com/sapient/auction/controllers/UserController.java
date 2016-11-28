@@ -1,8 +1,6 @@
 /* Copyright (C) 2016 Sapient. All Rights Reserved. */
 package com.sapient.auction.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -14,9 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sapient.auction.dao.exception.UserDaoException;
-import com.sapient.auction.domain.dao.UserDao;
+import com.sapient.auction.constants.ApplicationConstants;
 import com.sapient.auction.domain.model.User;
+import com.sapient.auction.exception.UserDaoException;
+import com.sapient.auction.services.UserService;
 
 /**
  * @author avish9
@@ -25,26 +24,25 @@ import com.sapient.auction.domain.model.User;
 @Controller
 public class UserController {
 	
-	/**
-	 * user dao.
-	 */
+	
+	
 	@Autowired
-	private UserDao userDao;
+	private UserService userService;
 
 	/** logger of user controller.*/
-	private static final Logger logger = Logger.getLogger(UserController.class);
+	private static final Logger LOGGER = Logger.getLogger(UserController.class);
 	
 	/**
 	 * this method landed to you in registration page.
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(path = "/register", method = RequestMethod.GET)
+	@RequestMapping(path = ApplicationConstants.REGISTER_REQUEST, method = RequestMethod.GET)
 	public String register(Model model) {
-		System.out.println("Hello");
+		LOGGER.debug("return register page.");
 		User user = new User();
 		model.addAttribute("user", user);
-		return "register";
+		return ApplicationConstants.REGISTER_VIEW;
 	}
 	
 	/**
@@ -54,24 +52,10 @@ public class UserController {
 	 * @return home page.
 	 * @throws UserDaoException 
 	 */
-	@RequestMapping(path = "/auctionRegistration", method = RequestMethod.POST)
-	public String createSaleItem(@Valid @ModelAttribute User user, BindingResult bindingResult) throws UserDaoException {
-		logger.info("Method: registration page");
-		System.out.println(user);
-		if (bindingResult.hasErrors()) {
-			logger.debug("error in registration field.");
-            return "register";
-        }
-		List<User> userDetails=userDao.getUserByUserName(user.getUserName());
-		if(userDetails.size()==1){
-			logger.debug("User alreday registered");
-			return "redirect:/register";
-		}else{
-			userDao.create(user);
-			return "login";
-		}
-		
-
+	@RequestMapping(path = ApplicationConstants.AUCTIONREGISTER_REQUEST, method = RequestMethod.POST)
+	public String userRegistration(@Valid @ModelAttribute User user, BindingResult bindingResult) throws UserDaoException
+	{
+		return userService.createUser(user,bindingResult);
 	}
-	
+	 
 }

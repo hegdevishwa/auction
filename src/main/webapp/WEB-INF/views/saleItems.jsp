@@ -11,7 +11,6 @@
 <title>Sale items</title>
 </head>
 <body>
-
 	<table>
 		<thead>
 			<tr>
@@ -25,9 +24,13 @@
 		<tbody>
 			<c:forEach items="${items}" var="item">
 				<tr>
-					<td><img
-						src="data:image/jpeg;base64,${item.base64EncodedImage}" alt="..."
-						width="100" height="100"></td>
+					<td><c:if test="${empty item.base64EncodedImage}">
+							<img src="resources/image/no-image-found.jpg" width="100"
+								height="100">
+						</c:if> <c:if test="${not empty item.base64EncodedImage}">
+							<img src="data:image/jpeg;base64,${item.base64EncodedImage}"
+								alt="" width="100" height="100">
+						</c:if></td>
 					<td>${item.name}</td>
 					<td>${item.description}</td>
 					<td>${item.baseBidPrice}</td>
@@ -37,5 +40,8 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<c:if test="${empty items}">
+		<h3 style="color: red">No active sale items available for bid.</h3>
+	</c:if>
 </body>
 </html>

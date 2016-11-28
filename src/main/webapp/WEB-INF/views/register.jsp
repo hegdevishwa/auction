@@ -17,15 +17,15 @@
 			commandName="user" style="border: none;" >
 			
 			<div class='row'>
-				<label for='fname'>First Name</label>
-				<form:input type="text" placeholder="First Name" path="fname" />
-				<form:errors path="fname" cssClass="error"/>
+				<label for='firstName'>First Name</label>
+				<form:input type="text" placeholder="First Name" path="firstName" />
+				<form:errors path="firstName" cssClass="error"/>
 			</div>
 			
 			
 			<div class='row'>
-				<label for='lname'>Last Name</label>
-				<form:input type="text" placeholder="Last Name" path="lname" />
+				<label for='lastName'>Last Name</label>
+				<form:input type="text" placeholder="Last Name" path="lastName" />
 			</div>
 			
 			<div class='row'>

@@ -15,7 +15,7 @@ public interface BidService {
 	 * @param bidId
 	 * @return bid object of given item id
 	 */
-	public List<Bid> getBid(Integer bidId);
+	public List<Bid> getBid(Integer itemID);
 	
 	/**
 	 * placed a bid of current user 

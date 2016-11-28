@@ -9,8 +9,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * @author avish9
- * Resource representing a User within the system.
+ * @author avish9 Resource representing a User within the system.
  */
 public class User {
 
@@ -19,23 +18,21 @@ public class User {
 
 	/** The user given (first)name. */
 	@NotEmpty(message = "Please enter name")
-	private String fname;
-	
-	/** The user given (last) name. */
-	private String lname;
+	private String firstName;
 
-	
-	 /** The user preferred user name. */
+	/** The user given (last) name. */
+	private String lastName;
+
+	/** The user preferred user name. */
 	@NotEmpty(message = "Please enter user name")
 	@Email
 	private String userName;
 
-	 /** The user preferred password. */
+	/** The user preferred password. */
 	@NotEmpty(message = "Please enter your password.")
 	@Size(min = 6, max = 15, message = "Your password must between 6 and 15 characters")
 	private String password;
 
-	
 	/** The user's preferred address. */
 	@NotEmpty(message = "Please enter address")
 	private String address;
@@ -52,6 +49,7 @@ public class User {
 
 	/**
 	 * set user id.
+	 * 
 	 * @param userId.
 	 */
 	public void setUserId(int userId) {
@@ -59,36 +57,34 @@ public class User {
 	}
 
 	/**
-	 * @return get first name.
+	 * @return the firstName
 	 */
-	public String getFname() {
-		return fname;
+	public String getFirstName() {
+		return firstName;
 	}
 
 	/**
-	 * set user first name.
-	 * @param fname.
+	 * @param firstName
+	 *            the firstName to set
 	 */
-	public void setFname(String fname) {
-		this.fname = fname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	/**
-	 * @return user last name.
+	 * @return the lastName
 	 */
-	public String getLname() {
-		return lname;
+	public String getLastName() {
+		return lastName;
 	}
 
 	/**
-	 * set user last name.
-	 * @param lname
+	 * @param lastName
+	 *            the lastName to set
 	 */
-	public void setLname(String lname) {
-		this.lname = lname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-
-	
 
 	/**
 	 * @return username of given user.
@@ -99,6 +95,7 @@ public class User {
 
 	/**
 	 * set username of given user.
+	 * 
 	 * @param userName.
 	 */
 	public void setUserName(String userName) {
@@ -114,12 +111,12 @@ public class User {
 
 	/**
 	 * set user password.
+	 * 
 	 * @param password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 	/**
 	 * @return user address.
@@ -130,7 +127,8 @@ public class User {
 
 	/**
 	 * set user address.
-	 * @param address 
+	 * 
+	 * @param address
 	 */
 	public void setAddress(String address) {
 		this.address = address;
@@ -145,13 +143,14 @@ public class User {
 
 	/**
 	 * set user creation date
+	 * 
 	 * @param createDate
 	 */
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	 /** {@inheritDoc} */
+	/** {@inheritDoc} */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -160,26 +159,27 @@ public class User {
 		return result;
 	}
 
-	 /** {@inheritDoc} */
+	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		User other = (User) obj;
-	
-		if (userId != other.userId)
+
+		if (userId != other.userId) {
 			return false;
+		}
 		return true;
 	}
 
-	 /** {@inheritDoc} */
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", fname=" + fname + ", lname=" + lname + ",  userName=" + userName + ", password=" + password + ", address=" + address
-				+ ", createDate=" + createDate + "]";
+		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ",  userName="
+				+ userName + ", password=" + password + ", address=" + address + ", createDate=" + createDate + "]";
 	}
 }

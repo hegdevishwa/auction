@@ -22,7 +22,7 @@
 <div id="registration-form">
 <div class='fieldset'>
 	 <legend id="legend">Home Page</legend>
-	<a href="javascript:formSubmit()"><input type="button" id= ""value="Logout"/></a>
+	<a href="javascript:formSubmit()"><input type="button" style="float: right;margin-top: 57px;" id= ""value="Logout"/></a>
 	<!-- For login user -->
 	<c:url value="/j_spring_security_logout" var="logoutUrl" />
 	<form action="${logoutUrl}" method="post" id="logoutForm">
@@ -38,7 +38,7 @@
 		<tr>
 			<td><c:if
 					test="${pageContext.request.userPrincipal.name != null}">
-					<h2>Welcome ${fname}</h2>
+					<h2>Welcome ${firstName}</h2>
 				</c:if></td>
 		</tr>
 	</table>

@@ -8,7 +8,6 @@
 
 	<!-- Maps '/' requests to the 'home' view -->
 	<mvc:view-controller path="/" view-name="home" />
-
 	<context:component-scan base-package="com.sapient.auction" />
 
 </beans>
